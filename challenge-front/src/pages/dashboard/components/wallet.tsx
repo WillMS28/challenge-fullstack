@@ -13,8 +13,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { addFundsMutation$data } from "@/graphql/__generated__/addFundsMutation.graphql";
 import { WalletBalance } from "@/pages/dashboard/components/walletBalance";
+import { useAddFundsMutation$data } from "@/services/hooks/__generated__/useAddFundsMutation.graphql";
 import { useAddFunds } from "@/services/hooks/useAddFunds";
 import { User } from "@/types/user";
 import { LogOut } from "lucide-react";
@@ -36,7 +36,7 @@ export const Wallet = ({
   const [openPopover, setOpenPopover] = useState(false);
   const location = useLocation();
 
-  const [, setData] = useState<addFundsMutation$data>();
+  const [, setData] = useState<useAddFundsMutation$data>();
   const [loading, setLoading] = useState(false);
 
   const [commit] = useAddFunds();

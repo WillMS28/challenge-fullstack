@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UserList } from "./components/usersList";
-import { createUserMutation$data } from "@/graphql/__generated__/createUserMutation.graphql";
+import { useCreateUserMutation$data } from "@/services/hooks/__generated__/useCreateUserMutation.graphql";
 
 
 const githubUrlPattern = /^(https?:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_-]+$/;
@@ -21,7 +21,7 @@ const githubUrlPattern = /^(https?:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_-]+$/;
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [isFormValid, setIsFormValid] = useState(false);
-  const [data, setData] = useState<createUserMutation$data>();
+  const [data, setData] = useState<useCreateUserMutation$data>();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [gitUser, setGitUser] = useState("");

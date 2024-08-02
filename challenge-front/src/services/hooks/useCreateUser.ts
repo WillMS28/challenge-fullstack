@@ -1,7 +1,6 @@
-import { useMutation } from "react-relay";
+import { graphql, useMutation } from "react-relay";
 import { Wallet } from "@/types/wallet";
-import { createUserMutation } from "@/graphql/__generated__/createUserMutation.graphql";
-import { createUserMutationGraphQL } from "@/graphql/createUser";
+import { useCreateUserMutation } from "./__generated__/useCreateUserMutation.graphql";
 
 export interface CreateUserData {
   createUser: {
@@ -13,5 +12,17 @@ export interface CreateUserData {
 }
 
 export const useCreateUser = () => {
-  return useMutation<createUserMutation>(createUserMutationGraphQL);
+  return useMutation<useCreateUserMutation>(graphql`
+    mutation useCreateUserMutation($name: String!, $email: String!) {
+      createUser(name: $name, email: $email) {
+        id
+        name
+        email
+        wallet {
+          id
+          balance
+        }
+      }
+    }
+  `);
 };

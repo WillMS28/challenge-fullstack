@@ -1,24 +1,43 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
-import { useLazyLoadQuery } from "react-relay";
-import { walletQueryGraphQL } from "@/graphql/wallet";
-import { User } from "@/types/user";
-import { walletQuery } from "@/graphql/__generated__/walletQuery.graphql";
+import { useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
+import { TransactionsList_user$key } from "./__generated__/TransactionsList_user.graphql";
 
 interface TransactionsProps {
-  user: User;
+  user: TransactionsList_user$key;
 }
 
 export const TransactionsList = ({ user }: TransactionsProps) => {
-  const response = useLazyLoadQuery<walletQuery>(
-    walletQueryGraphQL,
-    { id: user.wallet.id },
-    { fetchPolicy: "store-and-network" }
+  const data = useFragment(
+    graphql`
+      fragment TransactionsList_user on User {
+        wallet {
+          id
+          transactions {
+            id
+            fromWallet
+            toWallet
+            amount
+            date
+            sender {
+              id
+              name
+            }
+            receiver {
+              id
+              name
+            }
+          }
+        }
+      }
+    `,
+    user
   );
 
   const sortedTransactions =
-    response.wallet && Array.isArray(response.wallet.transactions)
-      ? [...response.wallet.transactions].sort(
+    data.wallet && Array.isArray(data.wallet.transactions)
+      ? [...data.wallet.transactions].sort(
           (a, b) => parseInt(b.date) - parseInt(a.date)
         )
       : [];
@@ -38,18 +57,20 @@ export const TransactionsList = ({ user }: TransactionsProps) => {
             return (
               <div
                 key={transaction.id}
-                className="flex justify-between items-center max-sm:flex-col w-full border my-2 px-4 py-2 rounded-lg bg-secondary"
+                className="flex justify-between w-full items-center max-sm:flex-col border my-2 px-4 py-2 rounded-lg bg-secondary"
               >
-                <div className="flex flex-col max-sm:items-center">
+                <div className="flex flex-1 flex-col max-sm:items-center">
                   {isSended ? (
-                    <span className="text-xs text-zinc-300">Transfer sent</span>
+                    <span className="text-xs text-zinc-300">
+                      Transfer sent to
+                    </span>
                   ) : (
                     <span className="text-xs text-zinc-300">
-                      Transfer received
+                      Transfer received from
                     </span>
                   )}
-                  <div className="flex flex-col items-start">
-                    <p className="text-sm text-white font-semibold truncate ">
+                  <div className="flex flex-col items-start max-w-[80%] max-sm:max-w-max overflow-hidden ">
+                    <p className="text-sm text-white font-semibold truncate text-ellipsis whitespace-nowrap">
                       {isSended
                         ? transaction.receiver.name
                         : transaction.sender.name}

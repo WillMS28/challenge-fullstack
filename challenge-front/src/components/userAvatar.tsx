@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { User } from "@/services/hooks/useGetUser";
+import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 
 interface GitHubUser {

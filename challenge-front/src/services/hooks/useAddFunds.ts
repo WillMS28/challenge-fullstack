@@ -1,7 +1,13 @@
-import { useMutation } from "react-relay";
-import { addFundsMutateGraphQL } from "@/graphql/addFunds";
-import { addFundsMutation } from "@/graphql/__generated__/addFundsMutation.graphql";
+import { graphql, useMutation } from "react-relay";
+import { useAddFundsMutation } from "./__generated__/useAddFundsMutation.graphql";
 
 export const useAddFunds = () => {
-  return useMutation<addFundsMutation>(addFundsMutateGraphQL);
+  return useMutation<useAddFundsMutation>(graphql`
+    mutation useAddFundsMutation($walletId: ID!, $amount: String!) {
+      addFundsToWallet(walletId: $walletId, amount: $amount) {
+        id
+        balance
+      }
+    }
+  `);
 };

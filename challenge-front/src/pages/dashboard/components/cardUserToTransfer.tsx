@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { UserAvatar } from "@/components/userAvatar";
-import { sendFundsMutation$data } from "@/graphql/__generated__/sendFundsMutation.graphql";
+import { useSendFundsMutation$data } from "@/services/hooks/__generated__/useSendFundsMutation.graphql";
 import { useSendFunds } from "@/services/hooks/useSendFunds";
 import { User } from "@/types/user";
 import { useState } from "react";
@@ -30,7 +30,7 @@ export const CardUserToTransfer = ({
   const [openPopover, setOpenPopover] = useState(false);
   const [amount, setAmount] = useState("0");
 
-  const [, setData] = useState<sendFundsMutation$data>();
+  const [, setData] = useState<useSendFundsMutation$data>();
   const [loading, setLoading] = useState(false);
 
   const [commit] = useSendFunds();
@@ -103,7 +103,8 @@ export const CardUserToTransfer = ({
                   className="bg-secondary hover:bg-secondary-hover"
                   disabled={
                     parseFloat(amount) <= 0 ||
-                    parseFloat(amount) > parseFloat(currentUser.wallet.balance) ||
+                    parseFloat(amount) >
+                      parseFloat(currentUser.wallet.balance) ||
                     amount.trim() === "" ||
                     loading
                   }

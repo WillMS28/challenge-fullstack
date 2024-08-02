@@ -1,10 +1,9 @@
-import { QueryRenderer } from "react-relay";
+import { graphql, QueryRenderer } from "react-relay";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserCardLogin } from "./userCardLogin";
 import { RelayEnvironment } from "@/RelayEnvironment";
 import { User } from "@/types/user";
-import { usersQueryGraphQL } from "@/graphql/users";
 
 interface UsersData {
   users: User[];
@@ -15,7 +14,19 @@ export const UserList = () => {
     <QueryRenderer
       variables={{}}
       environment={RelayEnvironment}
-      query={usersQueryGraphQL}
+      query={graphql`
+        query usersListQuery {
+          users {
+            id
+            name
+            email
+            wallet {
+              id
+              balance
+            }
+          }
+        }
+      `}
       render={({ error, props }) => {
         const usersData = props as UsersData;
 

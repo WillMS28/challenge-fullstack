@@ -1,8 +1,8 @@
-import { userQueryGraphQL } from "@/graphql/user";
+
 import { RelayEnvironment } from "@/RelayEnvironment";
 import { User, UserData } from "@/types/user";
 import { Loader2 } from "lucide-react";
-import { QueryRenderer } from "react-relay";
+import { graphql, QueryRenderer } from "react-relay";
 
 interface WalletBalanceProps {
   user: User;
@@ -14,7 +14,19 @@ export const WalletBalance = ({ user }: WalletBalanceProps) => {
     <QueryRenderer
       variables={{ id: user.id }}
       environment={RelayEnvironment}
-      query={userQueryGraphQL}
+      query={graphql`
+        query walletBalanceQuery($id: ID!) {
+          user(id: $id) {
+            id
+            name
+            email
+            wallet {
+              id
+              balance
+            }
+          }
+        }
+      `}
       render={({ error, props }) => {
         if (error) {
           return <div>Error! {error.message}</div>;
