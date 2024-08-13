@@ -25,3 +25,4 @@ dist-ssr
 
 # Relay modern
 __generated__/
+*storybook.log
