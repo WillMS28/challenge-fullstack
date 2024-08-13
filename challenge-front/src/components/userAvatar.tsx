@@ -1,6 +1,7 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/types/user";
 import { useEffect, useState } from "react";
+import DefaultLogo from "@/assets/default-avatar-logo.png";
 
 interface GitHubUser {
   avatar_url: string;
@@ -30,7 +31,7 @@ export const UserAvatar = ({ user }: AvatarUserProps) => {
 
   const Avatar_default = githubUser
     ? githubUser.avatar_url
-    : "https://avatars.githubusercontent.com/u/5347799?v=4";
+    : DefaultLogo //"https://avatars.githubusercontent.com/u/5347799?v=4";
 
   return (
     <Avatar>
