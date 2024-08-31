@@ -1,10 +1,12 @@
-import Koa from 'koa';
-import bodyParser from 'koa-bodyparser';
-import Router from 'koa-router';
-import { graphql } from 'graphql';
-import { schema, root } from './schema';
-import connectDB from './db';
-import cors from 'koa2-cors'; 
+import Koa from "koa";
+import bodyParser from "koa-bodyparser";
+import Router from "koa-router";
+import { graphql } from "graphql";
+import { schema, root } from "./schema";
+import connectDB from "./db";
+import cors from "koa2-cors";
+
+import "dotenv/config";
 
 interface GraphQLRequestBody {
   query: string;
@@ -16,15 +18,16 @@ const router = new Router();
 
 connectDB();
 
-app.use(cors({
-  origin: 'http://localhost:5173', 
-  credentials: true, 
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(bodyParser());
-
-router.post('/graphql', async (ctx) => {
-  const body = ctx.request.body as GraphQLRequestBody; 
+router.post("/graphql", async (ctx) => {
+  const body = ctx.request.body as GraphQLRequestBody;
   const { query, variables } = body;
   const result = await graphql({
     schema: schema,
@@ -35,9 +38,7 @@ router.post('/graphql', async (ctx) => {
   ctx.body = result;
 });
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+app.use(router.routes()).use(router.allowedMethods());
 
 const port = 3000;
 app.listen(port, () => {
