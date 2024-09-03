@@ -1,13 +1,14 @@
 import { RelayEnvironment } from "@/RelayEnvironment";
 import { User, UserData } from "@/types/user";
 import { Loader2 } from "lucide-react";
+import { memo } from "react";
 import { graphql, QueryRenderer } from "react-relay";
 
 interface WalletBalanceProps {
   user: User;
 }
 
-export const WalletBalance = ({ user }: WalletBalanceProps) => {
+const WalletBalance = ({ user }: WalletBalanceProps) => {
   return (
     <QueryRenderer
       variables={{ id: user.id }}
@@ -48,21 +49,15 @@ export const WalletBalance = ({ user }: WalletBalanceProps) => {
           const usersData = props as UserData;
 
           if (usersData.user.wallet.balance) {
+            const balance = usersData.user.wallet.balance;
             return (
               <div className="flex flex-col">
                 <span className="text-zinc-600 text-sm">Balance</span>
                 <span className="text-zinc-600 text-base font-semibold">
-                  {parseFloat(user.wallet.balance).toLocaleString("pt-br", {
+                  {parseFloat(balance).toLocaleString("pt-br", {
                     style: "currency",
                     currency: "BRL",
                   })}
-                  {parseFloat(usersData.user.wallet.balance).toLocaleString(
-                    "pt-br",
-                    {
-                      style: "currency",
-                      currency: "BRL",
-                    }
-                  )}
                 </span>
               </div>
             );
@@ -72,3 +67,5 @@ export const WalletBalance = ({ user }: WalletBalanceProps) => {
     />
   );
 };
+
+export default memo(WalletBalance);

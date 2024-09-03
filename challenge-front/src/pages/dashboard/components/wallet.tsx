@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { WalletBalance } from "@/pages/dashboard/components/walletBalance";
+import WalletBalance from "@/pages/dashboard/components/walletBalance";
 import { useAddFundsMutation$data } from "@/services/hooks/__generated__/useAddFundsMutation.graphql";
 import { useAddFunds } from "@/services/hooks/useAddFunds";
 import { User } from "@/types/user";
@@ -36,7 +36,7 @@ export const Wallet = ({
   const [openPopover, setOpenPopover] = useState(false);
   const location = useLocation();
 
-  const [, setData] = useState<useAddFundsMutation$data>();
+  // const [newBalance, setNewBalance] = useState<useAddFundsMutation$data>();
   const [loading, setLoading] = useState(false);
 
   const [commit] = useAddFunds();
@@ -54,12 +54,12 @@ export const Wallet = ({
         walletId: user?.wallet.id ? user?.wallet.id : location.state.wallet.id,
       },
       onCompleted(response) {
-        setData(response);
+        //setNewBalance(response);
         setLoading(false);
       },
     });
 
-    refetchQueries();
+    // refetchQueries();
   }
 
   return (
@@ -84,10 +84,10 @@ export const Wallet = ({
       <div className="">
         <Card className="h-[160px] max-md:min-w-[220px] min-w-[280px] flex flex-col justify-between ">
           <CardHeader>
+            <CardDescription>My wallet</CardDescription>
             <CardTitle className="text-lg truncate text-zinc-600">
               {user?.name}
             </CardTitle>
-            <CardDescription>My wallet</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">

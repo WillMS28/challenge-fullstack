@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserCardLogin } from "./userCardLogin";
 import { RelayEnvironment } from "@/RelayEnvironment";
 import { User } from "@/types/user";
+import { LoaderCircle } from "lucide-react";
 
 interface UsersData {
   users: User[];
@@ -33,7 +34,12 @@ export const UserList = () => {
         if (error) {
           return <div>Error! {error.message}</div>;
         } else if (!props) {
-          return <div>Loading...</div>;
+          return (
+            <div className="flex flex-col items-center justify-center rounded-md border h-80 py-3 min-w-64 w-full max-md:w-full max-w-[480px]">
+              <LoaderCircle className="animate-spin  h-8 w-8 text-white" />
+              <div className="text-white">Loading...</div>
+            </div>
+          );
         } else {
           return (
             <div className="flex flex-col items-center rounded-md border h-80 py-3 min-w-64 w-full max-md:w-full max-w-[480px]">

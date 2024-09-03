@@ -71,8 +71,8 @@ export const DashboardPage = () => {
     if (location.state.id) {
       setUser(location.state);
     }
-    getUserRelay(setUser, environment, user?.id ? user?.id : "");
-  }, [environment, location.state, user?.id]);
+    //getUserRelay(setUser, environment, user?.id ? user?.id : "");
+  }, [ location.state, user?.id]);
 
   return (
     <div className="flex flex-col relative w-[90%] h-[90%] max-md:min-h-[80%] max-md:h-auto max-w-[1280px] space-y-6 shadow-lg bg-primary bg-opacity-80 rounded-lg backdrop-blur-sm p-6">
