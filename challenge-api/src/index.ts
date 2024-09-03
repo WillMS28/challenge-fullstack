@@ -22,7 +22,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: "https://fullstack-front-woad.vercel.app/",
+    origin: OriginPath,
     credentials: true,
   })
 );
