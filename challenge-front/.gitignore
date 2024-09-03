@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 # Relay modern
-__generated__/
 *storybook.log
 
 # Compiled class file
