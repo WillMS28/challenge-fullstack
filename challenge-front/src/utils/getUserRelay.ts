@@ -1,10 +1,9 @@
-import { User } from "@/types/user";
 import { fetchQuery, graphql } from "relay-runtime";
 import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment";
 import { getUserRelayQuery } from "./__generated__/getUserRelayQuery.graphql";
 
 export const getUserRelay = async (
-  setUser: React.Dispatch<React.SetStateAction<User>>,
+  // setUser: React.Dispatch<React.SetStateAction<User>>,
   environment: RelayModernEnvironment,
   id: string
 ) => {
