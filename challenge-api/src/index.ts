@@ -13,6 +13,8 @@ interface GraphQLRequestBody {
   variables?: { [key: string]: any };
 }
 
+const OriginPath = process.env.ORIGIN_PATH;
+
 const app = new Koa();
 const router = new Router();
 
@@ -20,7 +22,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: OriginPath,
     credentials: true,
   })
 );
