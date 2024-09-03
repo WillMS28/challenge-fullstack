@@ -4,7 +4,7 @@ import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironme
 import { refetchQueriesQuery } from "./__generated__/refetchQueriesQuery.graphql";
 
 interface refetchQueriesProps {
-  user: User ;
+  user: User;
   environment: RelayModernEnvironment;
   setUser: React.Dispatch<React.SetStateAction<User>>;
 }
@@ -51,7 +51,7 @@ export const RefetchQueries = async ({
             ...prevState,
             wallet: {
               ...prevState.wallet,
-              balance: res.wallet.balance,
+              balance: res && res.wallet ? res.wallet.balance : "",
             },
           }));
         });

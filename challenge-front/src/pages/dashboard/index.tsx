@@ -11,12 +11,11 @@ import { User } from "@/types/user";
 
 import { Wallet } from "./components/wallet";
 import { dashboardQuery } from "./__generated__/dashboardQuery.graphql";
-import { getUserRelay } from "@/utils/getUserRelay";
 import { RefetchQueries } from "@/utils/refetchQueries";
 
 export const DashboardPage = () => {
   const environment = useRelayEnvironment();
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User>({} as User);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,17 +53,19 @@ export const DashboardPage = () => {
 
   const closeAndBackToLogin = () => {
     localStorage.removeItem("user");
-    setUser(null);
+    setUser({} as User);
 
     navigate("/");
   };
 
   const handleRefetchQueries = () => {
-    RefetchQueries({
-      environment,
-      setUser,
-      user,
-    });
+    if (user) {
+      RefetchQueries({
+        environment,
+        setUser,
+        user,
+      });
+    }
   };
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export const DashboardPage = () => {
       setUser(location.state);
     }
     //getUserRelay(setUser, environment, user?.id ? user?.id : "");
-  }, [ location.state, user?.id]);
+  }, [location.state, user?.id]);
 
   return (
     <div className="flex flex-col relative w-[90%] h-[90%] max-md:min-h-[80%] max-md:h-auto max-w-[1280px] space-y-6 shadow-lg bg-primary bg-opacity-80 rounded-lg backdrop-blur-sm p-6">

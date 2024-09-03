@@ -32,6 +32,7 @@ export type TransactionsList_user$data = {
   readonly " $fragmentType": "TransactionsList_user";
 };
 export type TransactionsList_user$key = {
+  wallet: any;
   readonly " $data"?: TransactionsList_user$data;
   readonly " $fragmentSpreads": FragmentRefs<"TransactionsList_user">;
 };

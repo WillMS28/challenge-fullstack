@@ -29,8 +29,8 @@ export const getUserRelay = async (
       }
     )
       .toPromise()
-      .then((res) => {
-        setUser(res.user);
+      .then(() => {
+        //  setUser(res.user);
       });
   } catch (error) {
     console.error("Failed to refresh transactions:", error);

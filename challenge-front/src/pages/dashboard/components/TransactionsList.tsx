@@ -2,10 +2,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowBigDownDash, ArrowBigUpDash } from "lucide-react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
-import { TransactionsList_user$key } from "./__generated__/TransactionsList_user.graphql";
 
 interface TransactionsProps {
-  user: TransactionsList_user$key;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  user: any;
 }
 
 export const TransactionsList = ({ user }: TransactionsProps) => {
@@ -51,7 +51,7 @@ export const TransactionsList = ({ user }: TransactionsProps) => {
       <ScrollArea className="w-full p-2 flex flex-col max-h-[440px] overflow-y-auto">
         {sortedTransactions.length > 0 ? (
           sortedTransactions.map((transaction) => {
-            const isSended = transaction.fromWallet == user.wallet.id;
+            const isSended = transaction.fromWallet == user.wallet?.id;
             const date = new Date(parseFloat(transaction.date));
 
             return (
