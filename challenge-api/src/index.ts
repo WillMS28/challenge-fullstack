@@ -89,6 +89,8 @@ router.get("/check-cpf", async (ctx) => {
       name: user.name,
       cpf: user.cpf,
       boleto: user.boleto,
+      data: user.data,
+      valor: user.valor,
       enable: true,
     };
   } else {
