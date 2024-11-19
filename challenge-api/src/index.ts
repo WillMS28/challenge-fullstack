@@ -30,24 +30,59 @@ app.use(bodyParser());
 
 // Simulated list of users with a boleto
 const usersWithBoletos = [
-  { id: '1', name: 'Alice', cpf: '12345678901', boleto: 'Boleto123' },
-  { id: '2', name: 'Bob', cpf: '98765432100', boleto: 'Boleto456' },
-  { id: '3', name: 'Charlie', cpf: '11122233344', boleto: 'Boleto789' },
-  { id: '4', name: 'David', cpf: '44455566677', boleto: 'Boleto012' },
-  { id: '5', name: 'Eva', cpf: '88899977766', boleto: 'Boleto345' },
+  {
+    id: "1",
+    name: "Alice",
+    cpf: "12345678901",
+    data: "20/12/2024",
+    valor: "12.147,12",
+    boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+  },
+  {
+    id: "2",
+    name: "Bob",
+    cpf: "98765432100",
+    valor: "12.147,12",
+    data: "20/12/2024",
+    boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+  },
+  {
+    id: "3",
+    name: "Charlie",
+    valor: "12.147,12",
+    cpf: "11122233344",
+    data: "20/12/2024",
+    boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+  },
+  {
+    id: "4",
+    name: "David",
+    cpf: "44455566677",
+    valor: "12.147,12",
+    data: "20/12/2024",
+    boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+  },
+  {
+    id: "5",
+    name: "Eva",
+    cpf: "88899977766",
+    valor: "12.147,12",
+    data: "20/12/2024",
+    boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+  },
 ];
 
 // New route to check the CPF
 router.get("/check-cpf", async (ctx) => {
   const cpf = ctx.query.cpf;
-  
+
   if (!cpf) {
     ctx.status = 400;
     ctx.body = { error: "CPF is required" };
     return;
   }
 
-  const user = usersWithBoletos.find(u => u.cpf === cpf);
+  const user = usersWithBoletos.find((u) => u.cpf === cpf);
 
   if (user) {
     ctx.body = {
