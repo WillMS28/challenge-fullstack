@@ -37,6 +37,7 @@ const usersWithBoletos = [
     data: "20/12/2024",
     valor: "12.147,12",
     boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+    parcelas: 3
   },
   {
     id: "2",
@@ -45,6 +46,7 @@ const usersWithBoletos = [
     valor: "12.147,12",
     data: "20/12/2024",
     boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+    parcelas: 1
   },
   {
     id: "3",
@@ -53,6 +55,7 @@ const usersWithBoletos = [
     cpf: "11122233344",
     data: "20/12/2024",
     boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+    parcelas: 2
   },
   {
     id: "4",
@@ -61,6 +64,7 @@ const usersWithBoletos = [
     valor: "12.147,12",
     data: "20/12/2024",
     boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+    parcelas: 4
   },
   {
     id: "5",
@@ -69,6 +73,7 @@ const usersWithBoletos = [
     valor: "12.147,12",
     data: "20/12/2024",
     boleto: "https://eppg.fgv.br/sites/default/files/teste.pdf",
+    parcelas: 5
   },
 ];
 
@@ -87,6 +92,7 @@ router.get("/check-cpf", async (ctx) => {
   if (user) {
     ctx.body = {
       name: user.name,
+      parcelas: user.parcelas,
       cpf: user.cpf,
       boleto: user.boleto,
       data: user.data,
